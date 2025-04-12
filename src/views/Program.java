@@ -13,4 +13,6 @@ public class Program {
         MenuView view = new MenuView();
         view.setVisible(true);
     }
+    
+
 }

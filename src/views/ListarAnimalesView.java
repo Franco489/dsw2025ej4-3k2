@@ -46,6 +46,28 @@ public class ListarAnimalesView extends javax.swing.JFrame {
             });
         }
     }
+    
+    public void actualizarTabla() {
+    ArrayList<AnimalViewModel> animales = Controlador.getAnimales();
+    animalesGrid.setModel(new DefaultTableModel(new Object[][] {}, 
+        new String[] { "Especie", "Edad", "Peso", "Sector", "Comida Fija", "Por. Peso" }));
+    
+    for(AnimalViewModel animal : animales){
+        ((DefaultTableModel)animalesGrid.getModel()).addRow(new Object[] {
+            animal.getEspecie(),
+            animal.getEdad(),
+            animal.getPeso(),
+            animal.getSector(),
+            animal.getValorFijo() > 0 ? String.format("%.2f%n Kgs.", animal.getValorFijo()) : "-",
+            animal.getPorcentaje() > 0 ? String.format("%.2f %%", animal.getPorcentaje()*100) : "-"
+        });
+    }
+}
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,7 +90,6 @@ public class ListarAnimalesView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zoológico - Listar Animales");
-        setPreferredSize(new java.awt.Dimension(640, 480));
         setSize(new java.awt.Dimension(640, 480));
 
         animalesGrid.setModel(new javax.swing.table.DefaultTableModel(
@@ -116,12 +137,23 @@ public class ListarAnimalesView extends javax.swing.JFrame {
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(totalCarnivoros, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalAlimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(totalHerbivoros, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))
+
                     .addComponent(totalCarnivoros, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalHerbivoros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(totalAlimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
@@ -139,7 +171,11 @@ public class ListarAnimalesView extends javax.swing.JFrame {
                 .addComponent(totalAlimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+
+        jButton1.setText("Cargar");
+
         jButton1.setText("Volver al Menu");
+
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -162,13 +198,19 @@ public class ListarAnimalesView extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -189,9 +231,18 @@ public class ListarAnimalesView extends javax.swing.JFrame {
     }//GEN-LAST:event_calcularComidaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+
+    new AgregarAnimalView().setVisible(true);
+    this.dispose();
+
+
+        // TODO add your handling code here:
+
         this.setVisible(false);
         MenuView menu = new MenuView();
         menu.setVisible(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
