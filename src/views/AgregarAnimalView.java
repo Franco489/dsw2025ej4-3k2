@@ -72,6 +72,8 @@ public class AgregarAnimalView extends JFrame {
         cancelarButton = new JButton("Cancelar");
         cancelarButton.setBounds(200, 220, 100, 30);
         add(cancelarButton);
+        
+    
 
         // Acciones de los botones
         guardarButton.addActionListener(new ActionListener() {
@@ -80,12 +82,14 @@ public class AgregarAnimalView extends JFrame {
                 agregarAnimal();
             }
         });
-
+        
+      
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-            }
+                System.exit(0);
+            }   
         });
     }
 
